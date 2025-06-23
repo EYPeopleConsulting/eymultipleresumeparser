@@ -16,19 +16,9 @@ REPORT_FOLDER = "static/reports"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(REPORT_FOLDER, exist_ok=True)
 
-
-def get_free_port():
-    s = socket.socket()
-    s.bind(('', 0))
-    port = s.getsockname()[1]
-    s.close()
-    return port
-
-
 @app.route('/')
 def index():
     return render_template('index.html')
-
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
@@ -103,21 +93,10 @@ def analyze():
 
     return render_template('results.html', results=results, timestamp=timestamp)
 
-
 @app.route('/results')
-def results():
+def results_page():
     return "<h3>Please analyze data before viewing results directly.</h3>"
 
-# For Jupyter Notebook Launcher
-def run_app_in_notebook():
-    import nest_asyncio
-    import threading
-
-    nest_asyncio.apply()
-    port = get_free_port()
-    print(f"✅ Flask app running at: http://127.0.0.1:{port}")
-
-    def run():
-        app.run(port=port, debug=False, use_reloader=False)
-
-    threading.Thread(target=run).start()
+# Required for gunicorn/Azure startup
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=False)
