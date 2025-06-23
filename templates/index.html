@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EY Resume JD Parser</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+        h2 {
+            color: #000;
+        }
+        input[type="text"], input[type="file"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #FFE600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        img {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img src="/static/ey_logo.png" class="ey-logo" alt="EY Logo">
+    <h2>Upload Resume PDF & JD File</h2>
+    <form action="/analyze" method="post" enctype="multipart/form-data">
+        <label>JD File (PDF or Word):</label>
+        <input type="file" name="jd_file" required>
+
+        <label>Resume PDF (with bookmarks):</label>
+        <input type="file" name="resume_pdf" required>
+
+        <label>Mandatory Skills (comma-separated):</label>
+        <input type="text" name="mandatory_skills" required>
+
+        <label>Optional Skills (comma-separated):</label>
+        <input type="text" name="optional_skills">
+
+        <button type="submit">Analyze</button>
+    </form>
+</div>
+</body>
+</html>
